@@ -29,7 +29,6 @@ function getCocktail(endpoint, callback) {
           );
         } else {
           callback(data, inputValue);
-          console.log(data);
         }
       })
       .catch((error) => alert(error));
@@ -62,11 +61,18 @@ function displayData(data) {
   }
   cocktailsContainer.innerHTML = html;
   gallery.scrollIntoView({ behavior: "smooth" });
+  inputCocktailName.value = "";
 }
 
 searchBtn.addEventListener("click", () =>
   getCocktail(`search.php?s=${inputCocktailName.value}`, displayData)
 );
+
+searchBtn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    getCocktail(`search.php?s=${inputCocktailName.value}`, displayData);
+  }
+});
 
 clearBtn.addEventListener("click", () => {
   inputCocktailName.value = "";
